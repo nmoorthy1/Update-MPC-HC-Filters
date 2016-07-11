@@ -1,4 +1,4 @@
-# Update-MPC-HC-Filters
+# Update MPC-HC Filters
 
 This is used to easily check for updates for your [madVR](http://forum.doom9.org/showthread.php?t=146228) and [LAV Filters](http://forum.doom9.org/showthread.php?t=156191) external filters for [Media Player Classic-Home Cinema](https://nightly.mpc-hc.org/).
 
