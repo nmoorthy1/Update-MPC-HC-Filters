@@ -14,9 +14,6 @@ lav = "http://forum.doom9.org/showpost.php?s=5aee4a0315e1bc9bba9346295f8308aa&p=
 lavdl = ""
 
 f = open(os.path.join(sys.path[0], "madvrver"), "a+")
-
-
-
 f.seek(0)
 
 line = f.readline()
@@ -63,6 +60,8 @@ f.close()
 
 f = open(os.path.join(sys.path[0], "lavver"), "a+")
 f.seek(0)
+
+
 line = f.readline()
 lav_ver = line[6:]
 lav_ver = lav_ver.rstrip()
