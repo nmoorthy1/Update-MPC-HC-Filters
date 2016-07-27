@@ -12,8 +12,12 @@ madvrdl = "http://madshi.net/madVR.zip"
 
 lav = "http://forum.doom9.org/showpost.php?s=5aee4a0315e1bc9bba9346295f8308aa&p=1425963&postcount=1"
 lavdl = ""
-f = open(os.path.join(sys.path[0], "madvrver"), "r+")
 
+f = open(os.path.join(sys.path[0], "madvrver"), "a+")
+
+
+
+f.seek(0)
 
 line = f.readline()
 madvr_ver = line[8:]
@@ -24,7 +28,7 @@ soup = BeautifulSoup(data, "html.parser")
 find = soup.body.find_all(text=re.compile(madvr_ver))
 if(len(find) == 1):
 	print("No new madVR version")
-if(len(find) == 0):
+if(len(find) == 0 or os.stat(f.fileno()).st_size == 0):
 	print("Found new madVR version, downloading...")
 	find = soup.body.find_all(text=re.compile('Last edited by madshi'))
 	find = find[0]
@@ -57,7 +61,8 @@ if(len(find) == 0):
 				raise
 f.close()
 
-f = open(os.path.join(sys.path[0], "lavver"), "r+")
+f = open(os.path.join(sys.path[0], "lavver"), "a+")
+f.seek(0)
 line = f.readline()
 lav_ver = line[6:]
 lav_ver = lav_ver.rstrip()
@@ -70,7 +75,7 @@ find = soup.body.find_all(text=re.compile(lav_ver))
 # print(find)
 if(len(find) == 1):
 	print("No new LAV Filters version")
-if(len(find) == 0):
+if(len(find) == 0 or os.stat(f.fileno()).st_size == 0):
 	print("Found new LAV Filters version, downloading...")
 	find = soup.body.find_all(text=re.compile('released '))
 	# print(find)
