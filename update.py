@@ -25,7 +25,7 @@ find = soup.body.find_all(text=re.compile(madvr_ver))
 if(len(find) == 1):
 	print("No new madVR version")
 if(len(find) == 0):
-	print("Found new madVR version")
+	print("Found new madVR version, downloading...")
 	find = soup.body.find_all(text=re.compile('Last edited by madshi'))
 	find = find[0]
 	find = find.replace('\r','')
@@ -49,6 +49,7 @@ if(len(find) == 0):
 		for name in z.namelist():
 			z.extract(name,"./madVR/")
 		fh.close()
+		os.remove("madVR.zip")
 	except urllib.error.HTTPError as err:
 			if err.code == 403:
 				print(err.code)
@@ -70,7 +71,7 @@ find = soup.body.find_all(text=re.compile(lav_ver))
 if(len(find) == 1):
 	print("No new LAV Filters version")
 if(len(find) == 0):
-	print("Found new LAV Filters version")
+	print("Found new LAV Filters version, downloading...")
 	find = soup.body.find_all(text=re.compile('released '))
 	# print(find)
 	find = find[0]
