@@ -13,10 +13,12 @@ madvrdl = "http://madshi.net/madVR.zip"
 lav = "http://forum.doom9.org/showpost.php?s=5aee4a0315e1bc9bba9346295f8308aa&p=1425963&postcount=1"
 lavdl = ""
 
+new = 0
 try:
-	f = open(os.path.join(sys.path[0], "madvrver"), "r+")
+	f = open(os.path.join(sys.path[0], "filter_versions"), "r+")
 except FileNotFoundError:
-	f = open(os.path.join(sys.path[0], "madvrver"), "w+")
+	f = open(os.path.join(sys.path[0], "filter_versions"), "w+")
+	new = 1
 
 line = f.readline()
 madvr_ver = line[0:]
@@ -36,7 +38,7 @@ if(len(find) == 0 or os.stat(f.fileno()).st_size == 0):
 	find = find.replace('\t', '')
 	f.seek(0)
 	f.write(find)
-	f.truncate()
+	# f.truncate()
 	
 	try:
 		hdr = {'User-Agent': 'Mozilla/5.0'}
@@ -57,18 +59,12 @@ if(len(find) == 0 or os.stat(f.fileno()).st_size == 0):
 				print(err.code)
 			else:
 				raise
-f.close()
 
-
-try:
-	f = open(os.path.join(sys.path[0], "lavver"), "r+")
-except FileNotFoundError:
-	f = open(os.path.join(sys.path[0], "lavver"), "w+")
+next_line = f.tell()
 
 line = f.readline()
 lav_ver = line[0:]
 lav_ver = lav_ver.rstrip()
-# print(lav_ver)
 
 response = requests.get(lav)
 data = response.text
@@ -77,14 +73,14 @@ find = soup.body.find_all(text=re.compile(lav_ver))
 # print(find)
 if(len(find) == 1):
 	print("No new LAV Filters version")
-if(len(find) == 0 or os.stat(f.fileno()).st_size == 0):
+if(len(find) == 0 or line == ""):
 	print("Found new LAV Filters version, downloading...")
 	find = soup.body.find_all(text=re.compile('released '))
 	# print(find)
 	find = find[0]
 	find = find[1:]
-	f.seek(0)
-	f.write(find)
+	f.seek(next_line)
+	f.write("\n"+find)
 	f.truncate()
 
 	try:
