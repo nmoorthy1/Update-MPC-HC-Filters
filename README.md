@@ -10,4 +10,4 @@ Python >= 3.3
     >>> update.py
 
 
-To use this, make sure you are currently already updated to the newest madVR and LAV Filters. Download all three files and make sure that all are in the same directory. Run update.py and it will check if there are newer versions and download the LAV exe and the madVR zip file and extract it. Run the exe to update LAV and move the madVR folder to your current installation location of madVR.
+To use this, run update.py and for the first run, it will create madvrver and lavver files as well as download the most recent versions of both. Run the exe to update LAV and move the madVR folder to your current installation location of madVR. For every subsequent run, make sure madvrver and lavver are in the same directory as update.py as it needs these to check if there are newer versions available.
