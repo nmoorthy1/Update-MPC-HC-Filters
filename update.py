@@ -13,11 +13,13 @@ madvrdl = "http://madshi.net/madVR.zip"
 lav = "http://forum.doom9.org/showpost.php?s=5aee4a0315e1bc9bba9346295f8308aa&p=1425963&postcount=1"
 lavdl = ""
 
-f = open(os.path.join(sys.path[0], "madvrver"), "a+")
-f.seek(0)
+try:
+	f = open(os.path.join(sys.path[0], "madvrver"), "r+")
+except FileNotFoundError:
+	f = open(os.path.join(sys.path[0], "madvrver"), "w+")
 
 line = f.readline()
-madvr_ver = line[8:]
+madvr_ver = line[0:]
 madvr_ver = madvr_ver.rstrip()
 response = requests.get(madvr)
 data = response.text
@@ -33,7 +35,6 @@ if(len(find) == 0 or os.stat(f.fileno()).st_size == 0):
 	find = find.replace('\n', '')
 	find = find.replace('\t', '')
 	f.seek(0)
-	f.write("madVR - ")
 	f.write(find)
 	f.truncate()
 	
@@ -58,12 +59,14 @@ if(len(find) == 0 or os.stat(f.fileno()).st_size == 0):
 				raise
 f.close()
 
-f = open(os.path.join(sys.path[0], "lavver"), "a+")
-f.seek(0)
 
+try:
+	f = open(os.path.join(sys.path[0], "lavver"), "r+")
+except FileNotFoundError:
+	f = open(os.path.join(sys.path[0], "lavver"), "w+")
 
 line = f.readline()
-lav_ver = line[6:]
+lav_ver = line[0:]
 lav_ver = lav_ver.rstrip()
 # print(lav_ver)
 
@@ -81,7 +84,6 @@ if(len(find) == 0 or os.stat(f.fileno()).st_size == 0):
 	find = find[0]
 	find = find[1:]
 	f.seek(0)
-	f.write("LAV - ")
 	f.write(find)
 	f.truncate()
 
